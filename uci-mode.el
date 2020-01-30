@@ -16,6 +16,9 @@
 ;;
 ;; Quickstart
 ;;
+;;     $ which stockfish
+;;     /usr/local/bin/stockfish
+;;
 ;;     (require 'uci-mode)
 ;;
 ;;     M-x uci-mode-run-engine
@@ -44,17 +47,11 @@
 ;;
 ;;     GNU Emacs version 24.3 or higher
 ;;
+;;     A command-line UCI chess engine such as Stockfish (the default)
+;;
 ;; Bugs
 ;;
 ;; TODO
-;;
-;;     Write README.md
-;;      - features
-;;        - font-lock
-;;        - persistent history
-;;        - pygn-mode integration
-;;      - triple-window screenshot
-;;      - instructions for engine-over-SSH
 ;;
 ;; IDEA
 ;;
