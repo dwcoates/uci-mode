@@ -1,3 +1,5 @@
+[![Build Status](https://github.com/dwcoates/uci-mode/workflows/CI/badge.svg)](https://github.com/dwcoates/uci-mode/actions)
+
 # Overview
 
 An Emacs major-mode for chess engine interaction.
@@ -73,6 +75,6 @@ The value of `uci-mode-engine-command` may also be set via customize.
 
 ## Compatibility and Requirements
 
-GNU Emacs 24.3 or higher
+GNU Emacs 25.1 or higher
 
 A command-line UCI engine executable, the default being [Stockfish](https://stockfishchess.org/)

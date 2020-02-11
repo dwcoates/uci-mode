@@ -7,7 +7,7 @@
 ;; URL: http://raw.github.com/dwcoates/uci-mode/master/uci-mode.el
 ;; Version: 0.5.0
 ;; Last-Updated: 13 Jan 2020
-;; Package-Requires: ((emacs "24.3"))
+;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: data, games, chess
 ;;
 ;; Simplified BSD License
@@ -45,7 +45,7 @@
 ;;
 ;; Compatibility and Requirements
 ;;
-;;     GNU Emacs version 24.3 or higher
+;;     GNU Emacs version 25.1 or higher
 ;;
 ;;     A command-line UCI chess engine such as Stockfish (the default)
 ;;
