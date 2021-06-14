@@ -202,6 +202,19 @@ form allows access to remote engines over SSH."
 
 ;;; Utility functions
 
+(defun uci-mode--get-engine-proc ()
+  "Return the engine process at `uci-mode-engine-buffer'."
+  (get-buffer-process uci-mode-engine-buffer))
+
+(defun uci-mode--process-alive-p ()
+  "Return true iff uci-mode engine process is alive."
+  (let ((proc (uci-mode--get-engine-proc)))
+    (and proc (process-live-p proc))))
+
+(defun uci-mode--get-engine-buffer ()
+  "Return the engine comint buffer using `uci-mode-engine-buffer-name'."
+  (get-buffer uci-mode-engine-buffer-name))
+
 (defun uci-mode-make-comint (command)
   "Create a UCI engine comint buffer.
 
@@ -221,7 +234,7 @@ COMMAND is the engine command to be executed."
       (with-current-buffer buf
         (uci-mode))
       (set-process-query-on-exit-flag proc nil)
-      (setq uci-mode-engine-buffer (get-buffer uci-mode-engine-buffer-name))
+      (setq uci-mode-engine-buffer (uci-mode--get-engine-buffer))
       (uci-mode-send-setoptions)))
   (display-buffer uci-mode-engine-buffer-name)
   (set-window-scroll-bars
@@ -230,8 +243,7 @@ COMMAND is the engine command to be executed."
 
 (defun uci-mode-engine-proc ()
   "Return the `uci-mode' inferior engine process."
-  (let ((proc (get-buffer-process
-                 uci-mode-engine-buffer)))
+  (let ((proc (uci-mode--get-engine-proc)))
     (unless (process-live-p proc)
       (error "No UCI engine process. Try `uci-mode-run-engine' or `uci-mode-restart-engine'"))
     proc))
@@ -358,7 +370,7 @@ user may enter a multi-word command which is split using
 
 When no engine is running, this is equivalent to `uci-mode-run-engine'."
   (interactive "P")
-  (let* ((proc (ignore-errors (uci-mode-engine-proc)))
+  (let* ((proc (uci-mode--get-engine-proc))
          (command-full (and proc (process-get proc 'command-full))))
     (setq command (cond
                     ((equal command '(4))
@@ -383,6 +395,32 @@ When no engine is running, this is equivalent to `uci-mode-run-engine'."
   (interactive)
   (let ((proc (uci-mode-engine-proc)))
     (comint-send-string proc "stop\n")))
+
+(defun uci-mode--kill-buffer-window-and-process ()
+  "Forcefully kill uci-mode engine buffer, window, and process."
+  (when (uci-mode--process-alive-p)
+    (let ((proc (uci-mode--get-engine-proc)))
+      (message "Forcefully quitting uci-mode engine process '%s' peacefully. Sending kill signal." (process-id proc))
+      (kill-process proc)))
+  (let* ((buf (uci-mode--get-engine-buffer))
+         (win (and buf (get-buffer-window uci-mode-engine-buffer-name))))
+    (when buf
+      (when win
+        (with-current-buffer-window buf nil nil
+          (kill-buffer-and-window)))
+      (kill-buffer buf))))
+
+(defun uci-mode-quit ()
+  "Send a \"quit\" message to the UCI engine, quit comint, and clean up the UCI buffer and window."
+  (interactive)
+  (if (uci-mode--process-alive-p)
+      (progn
+        (comint-send-string (uci-mode-engine-proc) "quit\n")
+        (message "uci-mode engine process sent 'quit' command.")
+        (sleep-for 0 20) ;; Give some time for the process to quit.
+        (uci-mode--kill-buffer-window-and-process))
+    (message "No uci-mode engine process.")
+    (uci-mode--kill-buffer-window-and-process)))
 
 (defun uci-mode-send-setoptions ()
   "Send `uci-mode-engine-setoptions' to a running UCI engine."
