@@ -1,12 +1,12 @@
 ;;; uci-mode.el --- Major-mode for chess engine interaction -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2020 Dodge Coates and Roland Walker
+;; Copyright (c) 2019-2021 Dodge Coates and Roland Walker
 ;;
 ;; Author: Dodge Coates and Roland Walker
 ;; Homepage: http://github.com/dwcoates/uci-mode
 ;; URL: http://raw.github.com/dwcoates/uci-mode/master/uci-mode.el
-;; Version: 0.5.0
-;; Last-Updated: 13 Jan 2020
+;; Version: 0.5.1
+;; Last-Updated: 18 Jun 2021
 ;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: data, games, chess
 ;;
@@ -97,7 +97,7 @@
 ;;; Code:
 ;;
 
-(defconst uci-mode-version "0.5.0")
+(defconst uci-mode-version "0.5.1")
 
 ;;; Imports
 
