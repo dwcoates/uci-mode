@@ -207,7 +207,7 @@ form allows access to remote engines over SSH."
   (get-buffer-process uci-mode-engine-buffer))
 
 (defun uci-mode--process-alive-p ()
-  "Return true iff uci-mode engine process is alive."
+  "Return non-nil iff `uci-mode' engine process is alive."
   (let ((proc (uci-mode--get-engine-proc)))
     (and proc (process-live-p proc))))
 
@@ -245,16 +245,16 @@ COMMAND is the engine command to be executed."
   "Return the `uci-mode' inferior engine process."
   (let ((proc (uci-mode--get-engine-proc)))
     (unless (process-live-p proc)
-      (error "No UCI engine process. Try `uci-mode-run-engine' or `uci-mode-restart-engine'"))
+      (error "No UCI engine process.  Try `uci-mode-run-engine' or `uci-mode-restart-engine'"))
     proc))
 
 (defun uci-mode-send-commands (commands)
   "Send COMMANDS (a list of strings) to a running UCI engine."
   (unless uci-mode-engine-buffer
-    (error "No UCI engine buffer. Try `uci-mode-run-engine' or `uci-mode-restart-engine'"))
+    (error "No UCI engine buffer.  Try `uci-mode-run-engine' or `uci-mode-restart-engine'"))
   (unless (process-live-p
            (get-buffer-process uci-mode-engine-buffer))
-    (error "No UCI engine process. Try `uci-mode-run-engine' or `uci-mode-restart-engine'"))
+    (error "No UCI engine process.  Try `uci-mode-run-engine' or `uci-mode-restart-engine'"))
   (with-current-buffer uci-mode-engine-buffer
     (dolist (cmd commands)
       (sleep-for 0.05)
@@ -265,6 +265,7 @@ COMMAND is the engine command to be executed."
 ;; buglet: some specified chatter lines still get through the filter,
 ;; presumably due to buffering
 (defun uci-mode-preoutput-reduce-chatter (str)
+  "Remove some less-important lines from engine output STR."
   (replace-regexp-in-string
    ;; Komodo
    "^info [^\n]*\\<\\(?:nodes\\|nps\\) [0-9]+\n" ""
@@ -336,7 +337,7 @@ Runs a UCI-compatible chess engine as a subprocess of Emacs."
   "Run an inferior UCI engine process.
 
 COMMAND defaults to `uci-mode-engine-command'.  When called
-interactively with universal prefix-arg, the user may edit the
+interactively with universal `prefix-arg', the user may edit the
 command.  When called with two universal prefix-args, the
 user may enter a multi-word command which is split using
 `split-string-and-unquote'."
@@ -363,7 +364,7 @@ user may enter a multi-word command which is split using
 
 COMMAND defaults to the path of the currently running engine, or
 `uci-mode-engine-command' when that information is not available.
-When called interactively with a universal prefix-arg, the user may
+When called interactively with a universal `prefix-arg', the user may
 edit the command.  When called with two universal prefix-args, the
 user may enter a multi-word command which is split using
 `split-string-and-unquote'.
@@ -397,7 +398,7 @@ When no engine is running, this is equivalent to `uci-mode-run-engine'."
     (comint-send-string proc "stop\n")))
 
 (defun uci-mode--kill-buffer-window-and-process ()
-  "Forcefully kill uci-mode engine buffer, window, and process."
+  "Forcefully kill `uci-mode' engine buffer, window, and process."
   (when (uci-mode--process-alive-p)
     (let ((proc (uci-mode--get-engine-proc)))
       (message "Forcefully quitting uci-mode engine process '%s' peacefully. Sending kill signal." (process-id proc))
