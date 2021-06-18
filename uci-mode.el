@@ -122,55 +122,55 @@
 The first element in the list should be an executable.  Optional
 additional elements are arguments to the executable.  The list
 form allows access to remote engines over SSH."
-  :group 'uci-mode
+  :group 'uci
   :type '(repeat string))
 
 (defcustom uci-mode-engine-setoptions
   '("setoption name MultiPV value 1")
   "List of UCI \"setoption\" commands to issue at engine startup."
-  :group 'uci-mode
+  :group 'uci
   :type '(repeat string))
 
 (defcustom uci-mode-command-history-file
   (expand-file-name "uci-mode-history.txt" user-emacs-directory)
   "Filename to store persistent `uci-mode' command history."
-  :group 'uci-mode
+  :group 'uci
   :type 'string)
 
 ;;;###autoload
-(defgroup uci-mode-faces nil
+(defgroup uci-faces nil
   "Faces used by uci-mode."
-  :group 'uci-mode)
+  :group 'uci)
 
 (defface uci-mode-depth-face
    '((t (:inherit font-lock-variable-name-face)))
   "uci-mode face for depth in info output."
-  :group 'uci-mode-faces)
+  :group 'uci-faces)
 
 (defface uci-mode-multipv-1-face
    '((t (:inherit font-lock-variable-name-face)))
   "uci-mode face for MultiPV 1 in info output."
-  :group 'uci-mode-faces)
+  :group 'uci-faces)
 
 (defface uci-mode-score-face
    '((t (:inherit font-lock-variable-name-face)))
   "uci-mode face for score in info output."
-  :group 'uci-mode-faces)
+  :group 'uci-faces)
 
 (defface uci-mode-pv-face
    '((t (:inherit font-lock-string-face)))
   "uci-mode face for pv in info output."
-  :group 'uci-mode-faces)
+  :group 'uci-faces)
 
 (defface uci-mode-option-name-face
    '((t (:inherit font-lock-string-face)))
   "uci-mode face for option names in uci response output."
-  :group 'uci-mode-faces)
+  :group 'uci-faces)
 
 (defface uci-mode-finished-face
    '((t (:inherit font-lock-builtin-face)))
   "uci-mode face for various final-line outputs."
-  :group 'uci-mode-faces)
+  :group 'uci-faces)
 
 ;;; Variables
 
@@ -303,7 +303,7 @@ COMMAND is the engine command to be executed."
 
 Runs a UCI-compatible chess engine as a subprocess of Emacs."
   :syntax-table uci-mode-syntax-table
-  :group 'uci-mode
+  :group 'uci
   (setq-local truncate-lines t)
   (setq-local comint-input-ring-file-name uci-mode-command-history-file)
   (comint-read-input-ring 'silent)
