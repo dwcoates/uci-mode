@@ -33,7 +33,7 @@
 ;;
 ;; See Also
 ;;
-;;     M-x customize-group RET uci-mode RET
+;;     M-x customize-group RET uci RET
 ;;
 ;;     M-x customize-group RET comint RET
 ;;
@@ -108,7 +108,7 @@
 ;;; Customizable variables
 
 ;;;###autoload
-(defgroup uci-mode nil
+(defgroup uci nil
   "Major-mode for chess engine interaction."
   :version uci-mode-version
   :link '(url-link :tag "Github" "http://github.com/dwcoates/uci-mode")
@@ -313,10 +313,8 @@ Runs a UCI-compatible chess engine as a subprocess of Emacs."
   (setq-local comint-input-ignoredups t)
   (setq-local mode-line-process '(":%s"))
   (setq-local comint-output-filter-functions
-              '(
-                comint-postoutput-scroll-to-bottom
-                comint-truncate-buffer
-                ))
+              '(comint-postoutput-scroll-to-bottom
+                comint-truncate-buffer))
   ;; modeline
   (when (process-get (get-buffer-process (current-buffer)) 'command-basename)
     (setq-local
