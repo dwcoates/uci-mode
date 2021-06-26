@@ -3,8 +3,8 @@
 ;; Copyright (c) 2019-2021 Dodge Coates and Roland Walker
 
 ;; Author: Dodge Coates and Roland Walker
-;; Homepage: http://github.com/dwcoates/uci-mode
-;; URL: http://raw.github.com/dwcoates/uci-mode/master/uci-mode.el
+;; Homepage: https://github.com/dwcoates/uci-mode
+;; URL: https://raw.github.com/dwcoates/uci-mode/master/uci-mode.el
 ;; Version: 0.5.1
 ;; Last-Updated: 18 Jun 2021
 ;; Package-Requires: ((emacs "25.1"))
@@ -70,7 +70,7 @@
 
 ;;     M-x customize-group RET comint RET
 
-;;     http://github.com/dwcoates/pygn-mode
+;;     https://github.com/dwcoates/pygn-mode
 
 ;;     http://wbec-ridderkerk.nl/html/UCIProtocol.html
 
@@ -98,7 +98,7 @@
 (defgroup uci nil
   "Major-mode for chess engine interaction."
   :version uci-mode-version
-  :link '(url-link :tag "Github" "http://github.com/dwcoates/uci-mode")
+  :link '(url-link :tag "Github" "https://github.com/dwcoates/uci-mode")
   :prefix "uci-mode-"
   :group 'data
   :group 'games)
