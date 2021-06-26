@@ -1,7 +1,7 @@
 ;;; uci-mode.el --- Major-mode for chess engine interaction -*- lexical-binding: t -*-
-;;
+
 ;; Copyright (c) 2019-2021 Dodge Coates and Roland Walker
-;;
+
 ;; Author: Dodge Coates and Roland Walker
 ;; Homepage: http://github.com/dwcoates/uci-mode
 ;; URL: http://raw.github.com/dwcoates/uci-mode/master/uci-mode.el
@@ -9,60 +9,11 @@
 ;; Last-Updated: 18 Jun 2021
 ;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: data, games, chess
-;;
-;; Simplified BSD License
-;;
-;;; Commentary:
-;;
-;; Quickstart
-;;
-;;     $ which stockfish
-;;     /usr/local/bin/stockfish
-;;
-;;     (require 'uci-mode)
-;;
-;;     M-x uci-mode-run-engine
-;;
-;; Explanation
-;;
-;;     Uci-mode is a comint-derived major-mode for interacting directly with
-;;     a UCI chess engine.  Direct UCI interaction is interesting for
-;;     programmers who are developing chess engines, or advanced players who
-;;     are doing deep analysis on games.  This mode is not useful for simply
-;;     playing chess.
-;;
-;; See Also
-;;
-;;     M-x customize-group RET uci RET
-;;
-;;     M-x customize-group RET comint RET
-;;
-;;     http://github.com/dwcoates/pygn-mode
-;;
-;;     http://wbec-ridderkerk.nl/html/UCIProtocol.html
-;;
-;; Notes
-;;
-;; Compatibility and Requirements
-;;
-;;     GNU Emacs version 25.1 or higher
-;;
-;;     A command-line UCI chess engine such as Stockfish (the default)
-;;
-;; Bugs
-;;
-;; TODO
-;;
-;; IDEA
-;;
-;;     Completions
-;;
-;;     Support multiple simultaneous engines
-;;
+
 ;;; License
-;;
+
 ;; Simplified BSD License:
-;;
+
 ;; Redistribution and use in source and binary forms, with or
 ;; without modification, are permitted provided that the following
 ;; conditions are met:
@@ -75,7 +26,7 @@
 ;;      copyright notice, this list of conditions and the following
 ;;      disclaimer in the documentation and/or other materials
 ;;      provided with the distribution.
-;;
+
 ;; This software is provided by the authors "AS IS" and any express
 ;; or implied warranties, including, but not limited to, the implied
 ;; warranties of merchantability and fitness for a particular
@@ -88,14 +39,50 @@
 ;; liability, or tort (including negligence or otherwise) arising in
 ;; any way out of the use of this software, even if advised of the
 ;; possibility of such damage.
-;;
+
 ;; The views and conclusions contained in the software and
 ;; documentation are those of the authors and should not be
 ;; interpreted as representing official policies, either expressed
 ;; or implied, of the authors.
-;;
+
+;;; Commentary:
+
+;; Quickstart
+
+;;     $ which stockfish
+;;     /usr/local/bin/stockfish
+
+;;     (require 'uci-mode)
+
+;;     M-x uci-mode-run-engine
+
+;; Explanation
+
+;;     Uci-mode is a comint-derived major-mode for interacting directly with
+;;     a UCI chess engine.  Direct UCI interaction is interesting for
+;;     programmers who are developing chess engines, or advanced players who
+;;     are doing deep analysis on games.  This mode is not useful for simply
+;;     playing chess.
+
+;; See Also
+
+;;     M-x customize-group RET uci RET
+
+;;     M-x customize-group RET comint RET
+
+;;     http://github.com/dwcoates/pygn-mode
+
+;;     http://wbec-ridderkerk.nl/html/UCIProtocol.html
+
+;; Notes
+
+;; Compatibility and Requirements
+
+;;     GNU Emacs version 25.1 or higher
+
+;;     A command-line UCI chess engine such as Stockfish (the default)
+
 ;;; Code:
-;;
 
 (defconst uci-mode-version "0.5.1")
 
@@ -307,8 +294,8 @@ Runs a UCI-compatible chess engine as a subprocess of Emacs."
   (setq-local truncate-lines t)
   (setq-local comint-input-ring-file-name uci-mode-command-history-file)
   (comint-read-input-ring 'silent)
-  (add-hook 'kill-buffer-hook 'comint-write-input-ring t t)
-  (add-hook 'comint-preoutput-filter-functions 'uci-mode-preoutput-reduce-chatter t t)
+  (add-hook 'kill-buffer-hook #'comint-write-input-ring t t)
+  (add-hook 'comint-preoutput-filter-functions #'uci-mode-preoutput-reduce-chatter t t)
   (setq-local comint-use-prompt-regexp nil)
   (setq-local comint-input-ignoredups t)
   (setq-local mode-line-process '(":%s"))
